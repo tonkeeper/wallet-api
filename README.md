@@ -353,11 +353,18 @@ Wallet must verify that Sale object’s address is the same as specified in the 
 
 Primary confirmation UI displays:
 
-TBD.
+* NFT item ID
+* Price in TON ("fullPrice")
+* Sale ID (sale contract address)
 
 Secondary UI:
 
-TBD.
+* marketplaceAddress
+* royaltyAddress
+* marketplaceFee
+* royalty
+* You receive: (fullPrice - marketplaceFee - royalty)
+
 
 ## Subscriptions
 
@@ -366,3 +373,4 @@ TBD: describe the API to submit subscriptions
 ```
 https://app.tonkeeper.com/v1/subscribe/<invoice-id>
 ```
+
