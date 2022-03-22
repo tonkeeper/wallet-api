@@ -1,11 +1,9 @@
-# Tonkeeper Universal Links
+# Tonkeeper Transaction Requests
 
 * [Definitions](#definitions)
-* [Unauthenticated transfers](#unauthenticated-transfers)
-* [Unauthenticated donations](#unauthenticated-donations)
-* [Transaction Request URL](#transaction-request-url)
+* [Payment URLs](#payment-urls)
+* [Authentication](#authentication)
 * [Transaction Request](#transaction-request)
-* [Authenticated transfers](#authenticated-transfers)
 * [NFTs](#nfts)
 * [Subscriptions](#subscriptions)
 
@@ -38,9 +36,9 @@ The object is explicitly signed and can be authenticated through the public key.
 That public key is then used to authenticate the object (e.g. pulling it from the list of known origins).
 
 
+## Payment URLs
 
-
-## Unauthenticated transfers
+#### Unauthenticated transfers
 
 ```
 ton://transfer/<address>
@@ -67,7 +65,7 @@ https://app.tonkeeper.com/transfer/<address>?
 Opens a compact confirmation dialog with all data filled-in. 
 User cannot edit any of the info and can only confirm or dismiss the request.
 
-## Unauthenticated donations
+#### Unauthenticated donations
 
 ```
 https://app.tonkeeper.com/donate/<address>?
@@ -84,7 +82,7 @@ Displays a specialized donation/tip interface.
 * `text` — pre-filled comment (optional).
 
 
-## Transaction Request URL
+#### Transaction Request URL
 
 Transaction request can be communicated to the wallet in 3 different ways:
 
@@ -92,7 +90,7 @@ Transaction request can be communicated to the wallet in 3 different ways:
 * Inline TR object wrapped in a Tonkeeper universal link.
 * Wrapped TR link in a Tonkeeper universal link.
 
-### Direct Transaction Request URL
+#### Direct Transaction Request URL
 
 Any URL that returns JSON-encoded [Transaction Request](#transaction-request).
 
@@ -100,7 +98,7 @@ Any URL that returns JSON-encoded [Transaction Request](#transaction-request).
 https://example.com/<...>.json
 ```
 
-### Inline Transaction Request
+#### Inline Transaction Request
 
 A universal link wrapping [Transaction Request](#transaction-request) so that it can be opened
 
@@ -108,7 +106,7 @@ A universal link wrapping [Transaction Request](#transaction-request) so that it
 https://app.tonkeeper.com/v1/txrequest-inline/<base64url(TransactionRequest)>
 ```
 
-### Wrapped Transaction Request URL
+#### Wrapped Transaction Request URL
 
 Here the URL to download transaction request is wrapped in universal link.
 
@@ -117,6 +115,17 @@ The URL is requested using `https://` scheme.
 ```
 https://app.tonkeeper.com/v1/txrequest-url/<example.com/...json>
 ```
+
+
+## Authentication
+
+There are three ways to authenticate authors of transaction requests: 
+
+1. The recipient’s address is known to the wallet and we could use [unauthenticated transfer](#unauthenticated-transfer) link or [unsigned transaction request](#unsigned-transaction-request). This is the case for whitelisted addresses and opening links from within embedded apps (webview/iframe).
+2. The recipient has a web backend: then we can rely on classic TLS certificates (web PKI) to authenticate the hostname by downloading an [unsigned transaction request](#unsigned-transaction-request) object via secure TLS connection.
+3. Telegram users and channels authenticated through Tonkeeper bot that registers `author_id` public key for invoice identification.
+
+
 
 
 
@@ -147,7 +156,7 @@ Signed request is signed by a public key registered with Tonkeeper.
 {
     "version": "1",
     "author_id": Base64(Ed25519Pubkey),
-    "body": Base64(json-encoded-transaction-request-body),
+    "body": Base64(TransactionRequestBody),
     "signature": Base64(Ed25519Signature),
 }
 ```
@@ -158,19 +167,21 @@ The transaction request validation procedure when `version` is `"1"`:
 2. Check the `signature` over `body` against the public key `author_id`.
 3. Parse the [Transaction Request Body](#transaction-request-body)
 
-## Transaction Request Body
+#### Transaction Request Body
 
 Specific kinds of body are listed below.
 
 ```
 {
     "expires_sec": <UNIX timestamp in seconds>,
-    "type": "transfer" | 
-            "donation" | 
+    "type": "transfer" |
+            "donation" |
             "nft-collection-deploy" |
             "nft-item-deploy" |
             "nft-change-owner" |
-            "nft-transfer",
+            "nft-transfer" |
+            "nft-sale-place" |
+            "nft-sale-cancel",
 
     (fields...)
 }
@@ -179,13 +190,6 @@ Specific kinds of body are listed below.
 Transaction request must be discarded if the local time is greater than the `expires_sec`.
 
 
-## Authenticated transfers
-
-There are three ways to authenticate the recipients: 
-
-1. The recipient’s address is known to the wallet and we could use [unauthenticated transfer](#unauthenticated-transfer) link or [unsigned transaction request](#unsigned-transaction-request). This is the case for whitelisted addresses and opening links from within embedded apps (webview/iframe).
-2. The recipient has a web backend: then we can rely on classic TLS certificates (web PKI) to authenticate the hostname by downloading an [unsigned transaction request](#unsigned-transaction-request) object via secure TLS connection.
-3. Telegram users and channels authenticated through Tonkeeper bot that registers `author_id` public key for invoice identification.
 
 
 
@@ -302,16 +306,58 @@ Primary confirmation UI displays:
 
 ### Place NFT Sale
 
-[Transaction request](#transaction-request) object with type `nft-sale`.
+[Transaction request](#transaction-request) object with type `nft-sale-place`.
 
+Parameters:
 
-TBD:
+* `marketplaceAddress` (string): address of the marketplace
+* `nftItemAddress` (string): identifier of the specific nft item
+* `fullPrice` (integer): price in nanocoins
+* `marketplaceFee` (integer): nanocoins as marketplace fee
+* `royaltyAddress` (string): address for the royalties
+* `royaltyAmount` (integer): nanotoncoins sent as royalties
+* `amount` (integer): nanotoncoins sent as commission with the message
+
+Primary confirmation UI displays:
+
+* NFT item ID
+* Price in TON ("fullPrice")
+* Royalties & commission: marketplaceFee + royalty
+* Tx fee: actual tx fee + amount
+
+Secondary UI:
+
+* marketplaceAddress
+* royaltyAddress
+* marketplaceFee
+* royalty
+* You receive: (fullPrice - marketplaceFee - royalty)
+
 
 ### Cancel NFT Sale
 
-TBD: 
+[Transaction request](#transaction-request) object with type `nft-sale-cancel`.
 
+Parameters:
 
+* `saleAddress` (string): address of the sale contract
+* `marketplaceAddress` (string): address of the marketplace
+* `nftItemAddress` (string): identifier of the specific nft item
+* `fullPrice` (integer): price in nanocoins
+* `marketplaceFee` (integer): nanocoins as marketplace fee
+* `royaltyAddress` (string): address for the royalties
+* `royaltyAmount` (integer): nanotoncoins sent as royalties
+* `amount` (integer): nanotoncoins sent as commission with the message
+
+Wallet must verify that Sale object’s address is the same as specified in the parameters.
+
+Primary confirmation UI displays:
+
+TBD.
+
+Secondary UI:
+
+TBD.
 
 ## Subscriptions
 
