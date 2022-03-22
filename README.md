@@ -221,12 +221,13 @@ If the `royaltyAddress` is set and not equal to the `ownerAddress` wallet app sh
 
 Primary confirmation UI displays:
 
-* Fee: actual tx fee + amount (which will be deposited on the interim contracts)
-* Royalty (%): fraction formatted in percents.
 * Royalty address (if not the same as the wallet).
+* Royalty (%): fraction formatted in percents.
+* Fee: actual tx fee + amount (which will be deposited on the interim contracts)
 
 Secondary UI with raw data:
 
+* NFT Collection ID: EQr6...jHyR (TODO: check if that must be front-and-center or not)
 * collectionContentUri
 * nftItemContentBaseUri
 * nftItemCodeHex
@@ -254,12 +255,14 @@ Note: `ownerAddress` cannot be set to some other wallet, not controlled by the i
 
 Primary confirmation UI displays:
 
-* NFT collection address
-* Item index
+* Item Name
+* Collection Name
 * Fee: actual tx fee + amount (which will be deposited on the interim contracts)
 
 Secondary UI with raw data:
 
+* Item Index (TODO: figure out what happens if this clashes with existing one)
+* NFT Collection ID
 * itemContentUri
 
 
@@ -275,11 +278,13 @@ Parameters:
 
 Primary confirmation UI displays:
 
-* NFT collection address
-* New owner address
-* Fee: actual tx fee + amount (which will be deposited on the interim contracts)
+* New owner address: `EQrJ...`
+* Fee: `<actual tx fee + amount>`
 
-There is no extended/secondary data to display.
+Secondary UI with raw data:
+
+* NFT Collection ID
+
 
 
 ### Transfer NFT
@@ -288,8 +293,8 @@ There is no extended/secondary data to display.
 
 Parameters:
 
-* `newOwnerAddress` (string)
-* `nftItemAddress` (string)
+* `newOwnerAddress` (string): recipient’s wallet
+* `nftItemAddress` (string): ID of the nft item
 * `amount` (integer): nanocoins to be sent to the item’s contract
 * `forwardAmount` (integer): nanocoins to be sent as a notification to the new owner
 * `text` (string, optional): optional comment
@@ -298,10 +303,13 @@ Wallet must validate that the `forwardAmount` is less or equal to the `amount`.
 
 Primary confirmation UI displays:
 
-* NFT item address
-* New owner address
-* Fee: actual tx fee + amount
-* Text: the freeform comment
+* Recipient:   `EQjTpY...tYj82s`
+* Fee: `<actual tx fee + amount>`
+* Text: `<freeform comment>`
+
+Secondary:
+
+* NFT Item ID: `Ekrj...57fP`
 
 
 ### Place NFT Sale
@@ -320,18 +328,19 @@ Parameters:
 
 Primary confirmation UI displays:
 
-* NFT item ID
-* Price in TON ("fullPrice")
-* Royalties & commission: marketplaceFee + royalty
-* Tx fee: actual tx fee + amount
+* Marketplace: `EQh6...`
+* Price: `100.00 TON`
+* Your proceeds: `79.64 TON`
+* Fees & royalties: `<txfee + amount + marketplace fee + royalties>`
 
 Secondary UI:
 
-* marketplaceAddress
-* royaltyAddress
-* marketplaceFee
-* royalty
-* You receive: (fullPrice - marketplaceFee - royalty)
+* NFT item ID: `EQr4...`
+* Marketplace fee: `10 TON`
+* RoyaltyAddress: `Eqt6...`
+* Royalty: `5 TON`
+* Blockchain fee: `0.572 TON` (txfee + amount)
+
 
 
 ### Cancel NFT Sale
@@ -353,17 +362,14 @@ Wallet must verify that Sale object’s address is the same as specified in the 
 
 Primary confirmation UI displays:
 
-* NFT item ID
-* Price in TON ("fullPrice")
-* Sale ID (sale contract address)
+* Fee: `<txfee>`
 
-Secondary UI:
 
-* marketplaceAddress
-* royaltyAddress
-* marketplaceFee
-* royalty
-* You receive: (fullPrice - marketplaceFee - royalty)
+
+
+
+
+
 
 
 ## Subscriptions
