@@ -127,8 +127,6 @@ There are three ways to authenticate authors of transaction requests:
 
 
 
-
-
 ## Transaction Request
 
 #### Unsigned Transaction Request
@@ -165,15 +163,27 @@ The transaction request validation procedure when `version` is `"1"`:
 
 1. Discard if the local time is over the expiration time `expires_sec`.
 2. Check the `signature` over `body` against the public key `author_id`.
+    * Message for signing: `"TONTxRequestV1"` concatenated with the body.
 3. Parse the [Transaction Request Body](#transaction-request-body)
+
+Unknown version is rejected as unknown and unsupported.
 
 #### Transaction Request Body
 
-Specific kinds of body are listed below.
+Request params are specific for each `type`.
+
+Body attributes:
+
+`type` (string): indicates the type of the `params` object.
+
+`expires_sec` (integer): UNIX timestamp in seconds after which the client must discard the request (per its local clock).
+
+`response_options`: JSON object describing return and callback URLs.
+
+Transaction request must be discarded if the local time is greater than the `expires_sec`.
 
 ```
 {
-    "expires_sec": <UNIX timestamp in seconds>,
     "type": "transfer" |
             "donation" |
             "nft-collection-deploy" |
@@ -183,13 +193,46 @@ Specific kinds of body are listed below.
             "nft-sale-place" |
             "nft-sale-cancel",
 
-    (fields...)
+    "expires_sec: integer,
+
+    "response_options": ResponseOptions,
+    
+    "params": TransferParams |
+              DonationParams |
+              NftCollectionDeployParams |
+              NftItemDeployParams |
+              NftChangeOwnerParams |
+              NftTransferParams |
+              NftSalePlaceParams |
+              NftSaleCancelParams
 }
 ```
 
-Transaction request must be discarded if the local time is greater than the `expires_sec`.
+#### Response Options
 
+There could be several ways (not mutually exclusive) to respond to the transaction request:
 
+1. Simply publish the transaction; the requesting party will be notified over the blockchain network.
+2. Send the transaction via the callback to the server.
+3. Send the transaction via the return URL that user opens upon confirmation.
+
+Parameters:
+
+`broadcast` (boolean, required): indicates whether the wallet should broadcast the transaction directly to the TON network. If set to `true`, we must broadcast before triggering `callback_url` (if it’s present).
+
+`return_url` (optional): URL that user opens on their device after successful login. This will include the TON transaction in a query string under the key `tontx`.
+
+`return_serverless` (optional): boolean value indicating that `tontx` parameter must be provided as a URL anchor (via `#`). Example: `https://example.com/...#tontx=`. 
+
+`callback_url` (optional): URL that user opens on their device after successful login. Signed transaction will be included in a query string under the key `tontx`.
+
+```
+{
+    "broadcast": false,
+    "return_url": "https://...",
+    "callback_url": "https://...",
+}
+```
 
 
 
