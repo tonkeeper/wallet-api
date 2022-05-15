@@ -433,6 +433,15 @@ Secondary UI:
 
 TBD: Cell layout for the above data.
 
+Wallet performs the following:
+
+1. Computes sale contract address `S`.
+2. Prepares wrapped message for the GetGems marketplaces that deploys `S`.
+3. Publishes the transaction to the marketplace address.
+4. Waits till `S` is published (3 attempts with 10 second delay).
+5. When `S` is published, automatically perform transfer of ownership for the token to address `S`.
+
+
 
 
 ### Cancel NFT Sale
