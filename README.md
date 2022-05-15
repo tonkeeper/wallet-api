@@ -5,6 +5,13 @@
 * [Authentication](#authentication)
 * [Transaction Request](#transaction-request)
 * [NFTs](#nfts)
+  * [Deploy NFT collection](#deploy-nft-collection)
+  * [Deploy NFT item](#deploy-nft-item)
+  * [Change Collection Owner](#change-nft-owner)
+  * [Transfer NFT](#transfer-nft)
+  * [Basic NFT Sale](#basic-nft-sale)
+  * [Getgems NFT Sale](#getgems-nft-sale)
+  * [Cancel NFT Sale](#cancel-nft-sale)
 * [Subscriptions](#subscriptions)
 
 
@@ -190,7 +197,7 @@ Transaction request must be discarded if the local time is greater than the `exp
             "nft-item-deploy" |
             "nft-change-owner" |
             "nft-transfer" |
-            "nft-sale-place" |
+            "nft-sale-place-getgems" |
             "nft-sale-cancel",
 
     "expires_sec: integer,
@@ -355,7 +362,9 @@ Secondary:
 * NFT Item ID: `Ekrj...57fP`
 
 
-### Place NFT Sale
+### Basic NFT Sale
+
+(WIP)
 
 [Transaction request](#transaction-request) object with type `nft-sale-place`.
 
@@ -386,6 +395,46 @@ Secondary UI:
 
 
 
+
+### Getgems NFT Sale
+
+[Transaction request](#transaction-request) object with type `nft-sale-place-getgems`.
+
+Parameters:
+
+* `marketplaceFeeAddress` (string): fee-collecting address
+* `marketplaceFee` (integer): nanocoins as marketplace fee
+* `royaltyAddress` (string): address for the royalties
+* `royaltyAmount` (integer): nanotoncoins sent as royalties
+* `createdAt`: (integer): UNIX timestamp of the sale creation date
+* `marketplaceAddress` (string): address of the marketplace
+* `nftItemAddress` (string): identifier of the specific nft item
+* `ownerAddress` (string): owner of the NFT item
+* `fullPrice` (integer): price in nanocoins
+* `amount` (integer): nanotoncoins sent as commission with the message
+* `messageHex` (string): hex-encoded message string (that fits in one TVM cell)
+* `marketplaceSignatureHex` (string): hex-encoded signature 
+
+Primary confirmation UI displays:
+
+* Marketplace: `EQh6...`
+* Price: `100.00 TON`
+* Your proceeds: `79.64 TON`
+* Fees & royalties: `<txfee + amount + marketplace fee + royalties>`
+
+Secondary UI:
+
+* NFT item ID: `EQr4...`
+* Marketplace fee: `10 TON`
+* Marketplace fee address: `EQmAr...`
+* RoyaltyAddress: `EQRy1t...`
+* Royalty: `5 TON`
+* Blockchain fee: `0.572 TON` (txfee + amount)
+
+TBD: Cell layout for the above data.
+
+
+
 ### Cancel NFT Sale
 
 [Transaction request](#transaction-request) object with type `nft-sale-cancel`.
@@ -393,21 +442,15 @@ Secondary UI:
 Parameters:
 
 * `saleAddress` (string): address of the sale contract
-* `marketplaceAddress` (string): address of the marketplace
-* `nftItemAddress` (string): identifier of the specific nft item
-* `fullPrice` (integer): price in nanocoins
-* `marketplaceFee` (integer): nanocoins as marketplace fee
-* `royaltyAddress` (string): address for the royalties
-* `royaltyAmount` (integer): nanotoncoins sent as royalties
+* `ownerAddress` (string): owner of the NFT item
 * `amount` (integer): nanotoncoins sent as commission with the message
 
-Wallet must verify that Sale object’s address is the same as specified in the parameters.
+Wallet must verify that it owns the `ownerAddress` and select the appropriate secret key and wallet contract to send the message from.
 
 Primary confirmation UI displays:
 
+* Sale address: `EQr4...`
 * Fee: `<txfee>`
-
-
 
 
 
