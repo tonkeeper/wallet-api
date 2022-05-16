@@ -1,4 +1,4 @@
-# Tonkeeper Transaction Requests
+# Tonkeeper Wallet API
 
 * [Definitions](#definitions)
 * [Payment URLs](#payment-urls)
@@ -16,8 +16,6 @@
 
 
 ## Definitions
-
-To avoid unnecessary confusion, we are clarifying some cryptographic 
 
 #### Authentication
 
