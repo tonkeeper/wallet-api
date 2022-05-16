@@ -227,11 +227,11 @@ Parameters:
 
 `broadcast` (boolean, required): indicates whether the wallet should broadcast the transaction directly to the TON network. If set to `true`, we must broadcast before triggering `callback_url` (if it’s present).
 
-`return_url` (optional): URL that user opens on their device after successful login. This will include the TON transaction in a query string under the key `tontx`.
+`return_url` (optional): URL that user opens on their device after successful login. This will include the fully-signed TON transaction in a query string under the key `tontx` (encoded in URL-safe Base64).
 
-`return_serverless` (optional): boolean value indicating that `tontx` parameter must be provided as a URL anchor (via `#`). Example: `https://example.com/...#tontx=`. 
+`return_serverless` (optional): boolean value indicating that `tontx` parameter must be provided as a URL anchor (via `#`). Example: `https://example.com/...#tontx=` (tx is encoded in URL-safe Base64). 
 
-`callback_url` (optional): URL that user opens on their device after successful login. Signed transaction will be included in a query string under the key `tontx`.
+`callback_url` (optional): URL that user opens on their device after successful login. Signed transaction will be included in a query string under the key `tontx` (encoded in URL-safe Base64).
 
 ```
 {
