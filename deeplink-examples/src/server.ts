@@ -2,7 +2,7 @@ import { engine } from 'express-handlebars';
 import express from 'express';
 import path from 'path';
 import cors from 'cors';
-import { getLocalIPAddress, makeTxInlineDeepLink, makeTxJsonDeepLink } from './utils';
+import { getLocalIPAddress, getTimeSec, makeTxInlineDeepLink, makeTxJsonDeepLink } from './utils';
 import { bodyExtractors } from './TxBodyData';
 
 function init() {
@@ -11,6 +11,7 @@ function init() {
   const host = getLocalIPAddress();
   const hostname = `${host}:${port}`;
   const app = express();
+  const txExpirationSec = 5 * 60;
   
   app.use(cors());
   app.engine("handlebars", engine());
@@ -18,7 +19,7 @@ function init() {
   app.set("views", path.resolve(__dirname, "./views"));
 
   app.get('/:type.json', (req, res) => {
-    const expiresSec = 0;
+    const expiresSec = Math.floor(getTimeSec() + txExpirationSec);
     const responseOptions = {
       callback_url: `${protocol}://${hostname}/complete`,
       return_url: `${protocol}://${hostname}/complete`,
@@ -41,7 +42,7 @@ function init() {
   });
 
   app.get('/', (req, res) => {
-    const expiresSec = 0;
+    const expiresSec = Math.floor(getTimeSec() + txExpirationSec);
     const responseOptions = {
       callback_url: `${protocol}://${hostname}/complete`,
       return_url: `${protocol}://${hostname}/complete`,

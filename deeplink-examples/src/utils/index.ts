@@ -14,3 +14,7 @@ export const makeTxInlineDeepLink = (body: any) => {
 export const makeTxJsonDeepLink = (url: string) => {
   return `https://app.tonkeeper.com/v1/txrequest-url/${url}`;
 }
+
+export function getTimeSec() {
+  return Math.floor((Date.now() / 1000));
+}
