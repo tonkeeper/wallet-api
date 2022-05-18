@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        margin: 40px;
+      }
+      .wrap {
+        display: flex;
+        align-items: stretch;
+        border: 0 solid black;
+        box-sizing: border-box;
+        flex-basis: auto;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex-shrink: 0;
+      }
+      .item {
+        padding: 16px;
+      }
+      h1, h2 {
+        display: flex;
+        justify-content: center;
+      } 
+
+      .link {
+        display: flex;
+        justify-content: center;
+        font-size: 18px;
+      }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="text/javascript">
+      function init() {
+        const elems = document.getElementsByClassName('qrcode');
+        for (let el of elems) {
+          if (el.tagName === 'DIV') {
+            const link = el.getAttribute('data-link');
+            new QRCode(el, {
+              text: link
+            });
+          }
+        }
+      }
+    </script>
+  </head>
+  <body onload="init()">
+    <h1 id="link">NFT deep links</h1>
+    <div class="wrap">
+      {{#each deepLinks}}
+        <div class="item">
+          <h2>{{type}}</h2>
+          <div class="qrcode" data-link="{{jsonLink}}"></div>
+          <br />
+          <a class="link" href="{{inlineLink}}">Inline deep link</a>
+          <br />
+          <a class="link" href="{{jsonLink}}">Json deep link</a>
+        </div>
+       {{/each}}
+    </div>
+  </body>
+</html>
