@@ -1,67 +1,67 @@
 export type NftCollectionDeployParams = {
-  ownerAddress: string;
+  ownerAddress?: string;
   royaltyAddress: string;
   royalty: number;
   collectionContentUri: string;
   nftItemContentBaseUri: string;
   nftItemCodeHex: string;
-  amount: number;
+  amount: string;
 }
 
 export type NftItemDeployParams = {
-  ownerAddress: string;
+  ownerAddress?: string;
   nftCollectionAddress: string;
   itemContentUri: string;
   itemIndex: number;
-  amount: number;
+  amount: string;
 }
 
 export type NftTransferParams = {
   newOwnerAddress: string;
   nftItemAddress: string;
-  forwardAmount: number;
-  amount: number;
-  text: string;
+  forwardAmount: string;
+  amount: string;
+  text?: string;
 }
 
 export type NftChangeOwnerParams = {
   nftCollectionAddress: string;
   newOwnerAddress: string;
-  amount: number;
+  amount: string;
 }
 
 export type NftSalePlaceParams = {
   marketplaceAddress: string; // (string): address of the marketplace
-  marketplaceFee: number; // (integer): nanocoins as marketplace fee
+  marketplaceFee: string; // (integer): nanocoins as marketplace fee
   royaltyAddress: string; // (string): address for the royalties
   nftItemAddress: string; // (string): identifier of the specific nft item
-  royaltyAmount: number; // (integer): nanotoncoins sent as royalties
-  fullPrice: number; // (integer): price in nanocoins
-  amount: number; //(integer): nanotoncoins sent as commission with the message
+  royaltyAmount: string; // (integer): nanotoncoins sent as royalties
+  fullPrice: string; // (integer): price in nanocoins
+  amount: string; //(integer): nanotoncoins sent as commission with the message
 }
 
 export type NftSaleCancelParams = {
   marketplaceAddress: string; // (string): address of the marketplace
   nftItemAddress: string; //  (string): identifier of the specific nft item
-  marketplaceFee: number; //  (integer): nanocoins as marketplace fee
+  marketplaceFee: string; //  (integer): nanocoins as marketplace fee
   royaltyAddress: string; //  (string): address for the royalties
-  royaltyAmount: number; //  (integer): nanotoncoins sent as royalties
+  royaltyAmount: string; //  (integer): nanotoncoins sent as royalties
   saleAddress: string; // (string): address of the sale contract
-  fullPrice: number; //  (integer): price in nanocoins
-  amount: number; //  (integer): nanotoncoins sent as commission with the message
+  fullPrice: string; //  (integer): price in nanocoins
+  amount: string; //  (integer): nanotoncoins sent as commission with the message
 }
 
 export type NftSalePlaceGetgems = {
   marketplaceFeeAddress: string;
-  marketplaceFee: number;
+  marketplaceFee: string;
   royaltyAddress: string;
-  royaltyAmount: number;
+  royaltyAmount: string;
   createdAt: number;
   marketplaceAddress: string;
   nftItemAddress: string;
   ownerAddress: string;
-  fullPrice: number;
-  amount: number;
+  fullPrice: string;
+  amount: string;
   messageHex: string;
   marketplaceSignatureHex: string;
 }
