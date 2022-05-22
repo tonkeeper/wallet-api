@@ -375,6 +375,7 @@ Parameters:
 * `royaltyAddress` (string): address for the royalties
 * `royaltyAmount` (integer): nanotoncoins sent as royalties
 * `amount` (integer): nanotoncoins sent as commission with the message
+* `forwardAmount` (integer): nanocoins to be sent as a notification to the sale contract
 
 Primary confirmation UI displays:
 
@@ -411,7 +412,8 @@ Parameters:
 * `fullPrice` (integer): price in nanocoins
 * `amount` (integer): nanotoncoins sent as commission with the message
 * `saleMessageBocHex` (string): hex-encoded arbitrary BoC with one cell (typically an empty cell)
-* `marketplaceSignatureHex` (string): hex-encoded signature 
+* `marketplaceSignatureHex` (string): hex-encoded signature
+* `forwardAmount` (integer): nanocoins to be sent as a notification to the sale contract
 
 Primary confirmation UI displays:
 
@@ -502,7 +504,7 @@ Wallet performs the following:
 3. Prepares message body with the opcode 1, marketplace signature and provided message.
 4. Sends this message to `marketplaceAddress` from the user's wallet matching `ownerAddress`.
 5. Waits till the contract at address `S` is initialized on-chain (3 attempts with 10 second delay).
-6. When `S` is initialized, automatically perform transfer of ownership for the token to address `S`.
+6. When `S` is initialized, automatically perform transfer of ownership for the token to address `S` with `forwardAmount`.
 
 
 
