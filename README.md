@@ -410,7 +410,7 @@ Parameters:
 * `ownerAddress` (string): owner of the NFT item
 * `fullPrice` (integer): price in nanocoins
 * `amount` (integer): nanotoncoins sent as commission with the message
-* `saleCommentHex` (string): hex-encoded arbitrary string (<1023 bits, typically empty)
+* `saleMessageBocHex` (string): hex-encoded arbitrary BoC with one cell (typically an empty cell)
 * `marketplaceSignatureHex` (string): hex-encoded signature 
 
 Primary confirmation UI displays:
@@ -477,9 +477,7 @@ Cell {
     marketplaceSignature: Buffer(512), // write raw 512 bits of signature
     refs: [
         SaleStateInit,
-        Cell {
-            saleComment // typically empty
-        },
+        saleMessageBoc.root_cells[0],
     ]
 }
 ```
