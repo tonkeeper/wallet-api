@@ -429,16 +429,82 @@ Secondary UI:
 * Royalty: `5 TON`
 * Blockchain fee: `0.572 TON` (txfee + amount)
 
-TBD: Cell layout for the above data.
+
+Sale Contract BOC (Base64-encoded):
+```
+te6cckECDAEAAikAART/APSkE/S88sgLAQIBIAMCAATyMAIBSAUEAFGgOFnaiaGmAaY/9IH0gfSB9AGoYaH0gfQB9IH0AGEEIIySsKAVgAKrAQICzQgGAfdmCEDuaygBSYKBSML7y4cIk0PpA+gD6QPoAMFOSoSGhUIehFqBSkHCAEMjLBVADzxYB+gLLaslx+wAlwgAl10nCArCOF1BFcIAQyMsFUAPPFgH6AstqyXH7ABAjkjQ04lpwgBDIywVQA88WAfoCy2rJcfsAcCCCEF/MPRSBwCCIYAYyMsFKs8WIfoCy2rLHxPLPyPPFlADzxbKACH6AsoAyYMG+wBxVVAGyMsAFcsfUAPPFgHPFgHPFgH6AszJ7VQC99AOhpgYC42EkvgnB9IBh2omhpgGmP/SB9IH0gfQBqGBNgAPloyhFrpOEBWccgGRwcKaDjgskvhHAoomOC+XD6AmmPwQgCicbIiV15cPrpn5j9IBggKwNkZYAK5Y+oAeeLAOeLAOeLAP0BZmT2qnAbE+OAcYED6Y/pn5gQwLCQFKwAGSXwvgIcACnzEQSRA4R2AQJRAkECPwBeA6wAPjAl8JhA/y8AoAyoIQO5rKABi+8uHJU0bHBVFSxwUVsfLhynAgghBfzD0UIYAQyMsFKM8WIfoCy2rLHxnLPyfPFifPFhjKACf6AhfKAMmAQPsAcQZQREUVBsjLABXLH1ADzxYBzxYBzxYB+gLMye1UABY3EDhHZRRDMHDwBTThaBI=
+```
+
+SaleStateInit cell for the sale contract:
+
+```
+StateInit {
+    codeCell: saleContractBOC[0],
+    dataCell: Cell {
+        isComplete: Uint(1), // store 0 (isComplete = false)
+        createdAt: Uint(32),
+        marketplaceAddress: Address,
+        nftItemAddress: Address,
+        nftOwnerAddress: Address,  // write null (writeUint(0, 2))
+        fullPrice: Coins,
+        
+        refs: [
+            Cell {
+                marketplaceFeeAddress: Address,
+                marketplaceFee: Coins,
+                royaltyAddress: Address,
+                royaltyAmount: Coins,
+            }
+        ]
+    }
+}
+```
+
+Sale contract address:
+
+```
+Address {
+    workchain: 0,
+    hash: SaleStateInit.hash
+}
+```
+
+MessageBody cell layout for deployment:
+
+```
+Cell {
+    op: Uint(32), // write "1" (OperationCodes.DeploySale),
+    marketplaceSignature: Buffer(512), // write raw 512 bits of signature
+    refs: [
+        SaleStateInit,
+        Cell {
+            message // typically empty
+        },
+    ]
+}
+```
+
+Transfer with TonWeb:
+
+```
+await wallet.methods.transfer({
+    secretKey: ...
+    toAddress: marketplaceAddress,
+    amount: amount,
+    seqno: seqno,
+    payload: MessageBody,
+    sendMode: 3,
+}).send()
+```
 
 Wallet performs the following:
 
-1. Computes sale contract address `S`.
-2. Prepares wrapped message for the GetGems marketplaces that deploys `S`.
-3. Publishes the transaction to the marketplace address.
-4. Waits till `S` is published (3 attempts with 10 second delay).
-5. When `S` is published, automatically perform transfer of ownership for the token to address `S`.
-
+1. Computes sale contract StateInit cell using parameters above.
+2. Computes the sale contract address `S` using state init for workchain 0.
+3. Prepares message body with the opcode 1, marketplace signature and provided message.
+4. Sends this message to `marketplaceAddress` from the user's wallet matching `ownerAddress`.
+5. Waits till the contract at address `S` is initialized on-chain (3 attempts with 10 second delay).
+6. When `S` is initialized, automatically perform transfer of ownership for the token to address `S`.
 
 
 
