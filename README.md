@@ -374,7 +374,8 @@ Parameters:
 * `marketplaceFee` (decimal string): nanocoins as marketplace fee
 * `royaltyAddress` (string): address for the royalties
 * `royaltyAmount` (decimal string): nanotoncoins sent as royalties
-* `amount` (decimal string): nanotoncoins sent as commission with the message
+* `deployAmount` (decimal string): nanotoncoins sent with deployment of sale contract
+* `transferAmount` (decimal string): nanotoncoins sent with nft transfer message
 * `forwardAmount` (decimal string): nanocoins to be sent as a notification to the sale contract
 
 Primary confirmation UI displays:
@@ -382,7 +383,7 @@ Primary confirmation UI displays:
 * Marketplace: `EQh6...`
 * Price: `100.00 TON`
 * Your proceeds: `79.64 TON`
-* Fees & royalties: `<txfee + amount + marketplace fee + royalties>`
+* Fees & royalties: `<txfee + deployAmount + transferAmount + marketplace fee + royalties>`
 
 Secondary UI:
 
@@ -410,7 +411,8 @@ Parameters:
 * `nftItemAddress` (string): identifier of the specific nft item
 * `ownerAddress` (string): owner of the NFT item
 * `fullPrice` (decimal string): price in nanocoins
-* `amount` (decimal string): nanotoncoins sent as commission with the message
+* `deployAmount` (decimal string): nanotoncoins sent with deployment of sale contract
+* `transferAmount` (decimal string): nanotoncoins sent with nft transfer message
 * `saleMessageBocHex` (string): hex-encoded arbitrary BoC with one cell (typically an empty cell)
 * `marketplaceSignatureHex` (string): hex-encoded signature
 * `forwardAmount` (decimal string): nanocoins to be sent as a notification to the sale contract
@@ -420,7 +422,7 @@ Primary confirmation UI displays:
 * Marketplace: `EQh6...`
 * Price: `100.00 TON`
 * Your proceeds: `79.64 TON`
-* Fees & royalties: `<txfee + amount + marketplace fee + royalties>`
+* Fees & royalties: `<txfee + deployAmount + transferAmount + marketplace fee + royalties>`
 
 Secondary UI:
 
@@ -490,7 +492,7 @@ Transfer with TonWeb:
 await wallet.methods.transfer({
     secretKey: ...
     toAddress: marketplaceAddress,
-    amount: amount,
+    amount: deployAmount,
     seqno: seqno,
     payload: MessageBody,
     sendMode: 3,
@@ -504,7 +506,7 @@ Wallet performs the following:
 3. Prepares message body with the opcode 1, marketplace signature and provided message.
 4. Sends this message to `marketplaceAddress` from the user's wallet matching `ownerAddress`.
 5. Waits till the contract at address `S` is initialized on-chain (3 attempts with 10 second delay).
-6. When `S` is initialized, automatically perform transfer of ownership for the token to address `S` with `forwardAmount`.
+6. When `S` is initialized, automatically perform transfer of ownership for the token to address `S` with `transferAmount` as main amount and `forwardAmount` that allows notifying the new owner (the sale contract).
 
 
 
