@@ -255,7 +255,7 @@ Parameters:
 * `collectionContentUri` (string): URI to the collection content
 * `nftItemContentBaseUri` (string): URI to the item content
 * `nftItemCodeHex` (string): hex-encoded contract code
-* `amount` (integer): nanotoncoins 
+* `amount` (decimal string): nanotoncoins 
 
 If the `ownerAddress` is set: 
 * single-wallet app checks that the address matches user’s address.
@@ -289,7 +289,7 @@ Parameters:
 
 * `ownerAddress` (string, optional)
 * `nftCollectionAddress` (string)
-* `amount` (integer): nanocoins to be sent to the item’s contract
+* `amount` (decimal string): nanocoins to be sent to the item’s contract
 * `itemIndex` (integer): index of the item in the collection
 * `itemContentUri` (string): path to the item description
 
@@ -322,7 +322,7 @@ Parameters:
 
 * `newOwnerAddress` (string)
 * `nftCollectionAddress` (string)
-* `amount` (integer): nanocoins to be sent to the item’s contract
+* `amount` (decimal string): nanocoins to be sent to the item’s contract
 
 Primary confirmation UI displays:
 
@@ -343,8 +343,8 @@ Parameters:
 
 * `newOwnerAddress` (string): recipient’s wallet
 * `nftItemAddress` (string): ID of the nft item
-* `amount` (integer): nanocoins to be sent to the item’s contract
-* `forwardAmount` (integer): nanocoins to be sent as a notification to the new owner
+* `amount` (decimal string): nanocoins to be sent to the item’s contract
+* `forwardAmount` (decimal string): nanocoins to be sent as a notification to the new owner
 * `text` (string, optional): optional comment
 
 Wallet must validate that the `forwardAmount` is less or equal to the `amount`.
@@ -370,12 +370,12 @@ Parameters:
 
 * `marketplaceAddress` (string): address of the marketplace
 * `nftItemAddress` (string): identifier of the specific nft item
-* `fullPrice` (integer): price in nanocoins
-* `marketplaceFee` (integer): nanocoins as marketplace fee
+* `fullPrice` (decimal string): price in nanocoins
+* `marketplaceFee` (decimal string): nanocoins as marketplace fee
 * `royaltyAddress` (string): address for the royalties
-* `royaltyAmount` (integer): nanotoncoins sent as royalties
-* `amount` (integer): nanotoncoins sent as commission with the message
-* `forwardAmount` (integer): nanocoins to be sent as a notification to the sale contract
+* `royaltyAmount` (decimal string): nanotoncoins sent as royalties
+* `amount` (decimal string): nanotoncoins sent as commission with the message
+* `forwardAmount` (decimal string): nanocoins to be sent as a notification to the sale contract
 
 Primary confirmation UI displays:
 
@@ -402,18 +402,18 @@ Secondary UI:
 Parameters:
 
 * `marketplaceFeeAddress` (string): fee-collecting address
-* `marketplaceFee` (integer): nanocoins as marketplace fee
+* `marketplaceFee` (decimal string): nanocoins as marketplace fee
 * `royaltyAddress` (string): address for the royalties
-* `royaltyAmount` (integer): nanotoncoins sent as royalties
+* `royaltyAmount` (decimal string): nanotoncoins sent as royalties
 * `createdAt`: (integer): UNIX timestamp of the sale creation date
 * `marketplaceAddress` (string): address of the marketplace
 * `nftItemAddress` (string): identifier of the specific nft item
 * `ownerAddress` (string): owner of the NFT item
-* `fullPrice` (integer): price in nanocoins
-* `amount` (integer): nanotoncoins sent as commission with the message
+* `fullPrice` (decimal string): price in nanocoins
+* `amount` (decimal string): nanotoncoins sent as commission with the message
 * `saleMessageBocHex` (string): hex-encoded arbitrary BoC with one cell (typically an empty cell)
 * `marketplaceSignatureHex` (string): hex-encoded signature
-* `forwardAmount` (integer): nanocoins to be sent as a notification to the sale contract
+* `forwardAmount` (decimal string): nanocoins to be sent as a notification to the sale contract
 
 Primary confirmation UI displays:
 
@@ -516,7 +516,7 @@ Parameters:
 
 * `saleAddress` (string): address of the sale contract
 * `ownerAddress` (string): owner of the NFT item
-* `amount` (integer): nanotoncoins sent as commission with the message
+* `amount` (decimal string): nanotoncoins sent as commission with the message
 
 Wallet must verify that it owns the `ownerAddress` and select the appropriate secret key and wallet contract to send the message from.
 
