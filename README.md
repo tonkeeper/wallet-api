@@ -254,7 +254,8 @@ Parameters:
 * `royaltyAddress` (string)
 * `collectionContentUri` (string): URI to the collection content
 * `nftItemContentBaseUri` (string): URI to the item content
-* `nftItemCodeHex` (string): hex-encoded contract code
+* `nftCollectionCodeHex` (string): hex-encoded collection contract code BoC with one cell
+* `nftItemCodeHex` (string): hex-encoded item contract code BoC with one cell
 * `amount` (decimal string): nanotoncoins 
 
 If the `ownerAddress` is set: 
