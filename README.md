@@ -300,9 +300,9 @@ User cannot edit any of the info and can only confirm or dismiss the request.
 Destination address must be verified as follows (TonWeb example):
 
 ```js
-const stateInitCell = Cell.oneFromBoc(uriparams.stateinit);
+const stateInitCell = Cell.oneFromBoc(params.stateInitHex);
 const hash = await stateInitCell.hash();
-const address = new Address(uriparams.address);
+const address = new Address(params.address);
 const valid = (address.hashPart == hash);
 ```
 
