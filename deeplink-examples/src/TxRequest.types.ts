@@ -51,19 +51,21 @@ export type NftSaleCancelParams = {
   amount: string; //  (integer): nanotoncoins sent as commission with the message
 }
 
-export type NftSalePlaceGetgems = {
-  marketplaceFeeAddress: string;
-  marketplaceFee: string;
-  royaltyAddress: string;
-  royaltyAmount: string;
-  createdAt: number;
-  marketplaceAddress: string;
-  nftItemAddress: string;
-  ownerAddress: string;
-  fullPrice: string;
-  amount: string;
-  messageHex: string;
-  marketplaceSignatureHex: string;
+export type NftSalePlaceGetgemsParams = {
+  marketplaceFeeAddress: string; // (string): fee-collecting address
+  marketplaceFee: string; // (decimal string): nanocoins as marketplace fee
+  royaltyAddress: string; // (string): address for the royalties
+  royaltyAmount: string; // (decimal string): nanotoncoins sent as royalties
+  createdAt: number; // (integer): UNIX timestamp of the sale creation date
+  marketplaceAddress: string; // (string): address of the marketplace
+  nftItemAddress: string; // (string): identifier of the specific nft item
+  ownerAddress: string; // (string): owner of the NFT item
+  fullPrice: string; // (decimal string): price in nanocoins
+  deployAmount: string; // (decimal string): nanotoncoins sent with deployment of sale contract
+  transferAmount: string; // (decimal string): nanotoncoins sent with nft transfer message
+  saleMessageBocHex: string; // (string): hex-encoded arbitrary BoC with one cell (typically an empty cell)
+  marketplaceSignatureHex: string; // (string): hex-encoded signature
+  forwardAmount: string; // (decimal string): nanocoins to be sent as a notification to the sale contract
 }
 
 export type TxTypes = 
@@ -84,7 +86,7 @@ export type TxParams =
   | NftTransferParams 
   | NftSalePlaceParams 
   | NftSaleCancelParams
-  | NftSalePlaceGetgems;
+  | NftSalePlaceGetgemsParams;
 
 export type TxResponseOptions = {
   broadcast: boolean;

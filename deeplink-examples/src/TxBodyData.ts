@@ -1,4 +1,4 @@
-import { NftChangeOwnerParams, NftCollectionDeployParams, NftItemDeployParams, NftSaleCancelParams, NftSalePlaceGetgems, NftSalePlaceParams, NftTransferParams, TxRequestBody, TxResponseOptions } from "./TxRequest.types";
+import { NftChangeOwnerParams, NftCollectionDeployParams, NftItemDeployParams, NftSaleCancelParams, NftSalePlaceGetgemsParams, NftSalePlaceParams, NftTransferParams, TxRequestBody, TxResponseOptions } from "./TxRequest.types";
 
 export const getNFTCollectionDeployBody = (
   response_options: TxResponseOptions,
@@ -104,21 +104,24 @@ export const getNFTSaleCancelBody = (
 export const getGetgemsNFTSaleBody = (
   response_options: TxResponseOptions,
   expires_sec: number
-): TxRequestBody<NftSalePlaceGetgems> => ({
+): TxRequestBody<NftSalePlaceGetgemsParams> => ({
   type: 'nft-sale-place-getgems',
   params: {
-    marketplaceFeeAddress: '',
-    marketplaceFee: '100000000',
-    royaltyAddress: '',
-    royaltyAmount: '100000000',
-    createdAt: 213123123,
-    marketplaceAddress: '',
-    nftItemAddress: '',
-    ownerAddress: '',
-    fullPrice: '1000000000',
-    amount: '100000000',
-    messageHex: '',
-    marketplaceSignatureHex: ''
+    "marketplaceFeeAddress": "EQCjk1hh952vWaE9bRguFkAhDAL5jj3xj9p0uPWrFBq_GEMS",
+    "marketplaceFee": "50000000",
+    "royaltyAddress": "EQD2NmD_lH5f5u1Kj3KfGyTvhZSX0Eg6qp2a5IQUKXxOG21n",
+    "royaltyAmount": "10000000",
+    "createdAt": 1653268198,
+    "marketplaceAddress": "EQBYTuYbLf8INxFtD8tQeNk5ZLy-nAX9ahQbG_yl1qQ-GEMS",
+    "nftItemAddress": "EQCaIOpSEvs2NjLyKJ7YqoxZw8UdWBrHjlAEZ5zAzM521gno",
+    "ownerAddress": "EQD2NmD_lH5f5u1Kj3KfGyTvhZSX0Eg6qp2a5IQUKXxOG21n",
+    "fullPrice": "1000000000",
+    "marketplaceSignatureHex": "",
+
+    "saleMessageBocHex": "",
+    "forwardAmount": "30000000",
+    "transferAmount": "30000000",
+    "deployAmount": "30000000",
   },
   response_options,
   expires_sec,
