@@ -5,8 +5,9 @@
 * [Authentication](#authentication)
 * [Transaction Request](#transaction-request)
 * [Basic transfers](#basic-transfers)
-  * [Payment](#payment-transfer)
-  * [Payment](#payment-transfer)
+  * [Payment](#payment)
+  * [Donation](#donation)
+  * [Deploy](#deploy)
 * [NFTs](#nfts)
   * [Deploy NFT collection](#deploy-nft-collection)
   * [Deploy NFT item](#deploy-nft-item)
@@ -282,7 +283,7 @@ WIP.
 WIP.
 
 
-### Contract deploy
+### Deploy
 
 [Transaction request](#transaction-request) object with type `deploy`.
 
