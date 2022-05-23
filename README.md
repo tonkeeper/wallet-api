@@ -4,6 +4,9 @@
 * [Payment URLs](#payment-urls)
 * [Authentication](#authentication)
 * [Transaction Request](#transaction-request)
+* [Basic transfers](#basic-transfers)
+  * [Payment](#payment-transfer)
+  * [Payment](#payment-transfer)
 * [NFTs](#nfts)
   * [Deploy NFT collection](#deploy-nft-collection)
   * [Deploy NFT item](#deploy-nft-item)
@@ -72,6 +75,8 @@ User cannot edit any of the info and can only confirm or dismiss the request.
 
 #### Unauthenticated donations
 
+WIP.
+
 ```
 https://app.tonkeeper.com/donate/<address>?
     amounts[]=<nanocoins1>&
@@ -85,6 +90,30 @@ Displays a specialized donation/tip interface.
 * `amounts` — array of possible amounts to choose from (max 3)
 * `allow_custom` (0, 1) — whether wallet allows user-editable amount field or not. Default is `0`.
 * `text` — pre-filled comment (optional).
+
+
+#### Unauthenticated contract deploys
+
+```
+https://app.tonkeeper.com/deploy/<address>?
+    amount=<nanocoins>&
+    stateinit=<hex>&
+    [text=<url-encoded-utf8-text>]
+```
+
+`stateinit` is a required field with hex-encoded bag-of-cells with one StateInit cell.
+
+Opens a compact confirmation dialog with all data filled-in.
+User cannot edit any of the info and can only confirm or dismiss the request.
+
+Destination address must be verified as follows (TonWeb example):
+
+```js
+const stateInitCell = Cell.oneFromBoc(uriparams.stateinit);
+const hash = await stateInitCell.hash();
+const address = new Address(uriparams.address);
+const valid = (address.hashPart == hash);
+```
 
 
 #### Transaction Request URL
@@ -191,6 +220,7 @@ Transaction request must be discarded if the local time is greater than the `exp
 {
     "type": "transfer" |
             "donation" |
+            "deploy" |
             "nft-collection-deploy" |
             "nft-item-deploy" |
             "nft-change-owner" |
@@ -204,6 +234,7 @@ Transaction request must be discarded if the local time is greater than the `exp
     
     "params": TransferParams |
               DonationParams |
+              DeployParams |
               NftCollectionDeployParams |
               NftItemDeployParams |
               NftChangeOwnerParams |
@@ -223,13 +254,13 @@ There could be several ways (not mutually exclusive) to respond to the transacti
 
 Parameters:
 
-`broadcast` (boolean, required): indicates whether the wallet should broadcast the transaction directly to the TON network. If set to `true`, we must broadcast before triggering `callback_url` (if it’s present).
+* (Not supported yet) `broadcast` (boolean, required): indicates whether the wallet should broadcast the transaction directly to the TON network. If set to `true`, we must broadcast before triggering `callback_url` (if it’s present).
 
-`return_url` (optional): URL that user opens on their device after successful login. This will include the fully-signed TON transaction in a query string under the key `tontx` (encoded in URL-safe Base64).
+* `return_url` (optional): URL that user opens on their device after successful login. This will include the fully-signed TON transaction in a query string under the key `tontx` (encoded in URL-safe Base64).
 
-`return_serverless` (optional): boolean value indicating that `tontx` parameter must be provided as a URL anchor (via `#`). Example: `https://example.com/...#tontx=` (tx is encoded in URL-safe Base64). 
+* `return_serverless` (optional): boolean value indicating that `tontx` parameter must be provided as a URL anchor (via `#`). Example: `https://example.com/...#tontx=` (tx is encoded in URL-safe Base64). 
 
-`callback_url` (optional): URL that user opens on their device after successful login. Signed transaction will be included in a query string under the key `tontx` (encoded in URL-safe Base64).
+* `callback_url` (optional): URL that user opens on their device after successful login. Signed transaction will be included in a query string under the key `tontx` (encoded in URL-safe Base64).
 
 ```
 {
@@ -239,6 +270,40 @@ Parameters:
 }
 ```
 
+## Basic transfers
+
+### Transfer
+
+WIP.
+
+
+### Donation
+
+WIP.
+
+
+### Contract deploy
+
+[Transaction request](#transaction-request) object with type `deploy`.
+
+Parameters:
+
+* `address` (string)
+* `stateInitHex` (string): hex-encoded collection contract code BoC with one cell encapsulating entire StateInit
+* `amount` (decimal string): nanotoncoins
+* `text` (string, optional): text message that must be attached to the deploy operation
+
+Opens a compact confirmation dialog with all data filled-in.
+User cannot edit any of the info and can only confirm or dismiss the request.
+
+Destination address must be verified as follows (TonWeb example):
+
+```js
+const stateInitCell = Cell.oneFromBoc(uriparams.stateinit);
+const hash = await stateInitCell.hash();
+const address = new Address(uriparams.address);
+const valid = (address.hashPart == hash);
+```
 
 
 ## NFTs
