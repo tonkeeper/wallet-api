@@ -11,6 +11,7 @@
 * [NFTs](#nfts)
   * [Deploy NFT collection](#deploy-nft-collection)
   * [Deploy NFT item](#deploy-nft-item)
+  * [Deploy Single NFT](#deploy-single-nft)
   * [Change Collection Owner](#change-nft-owner)
   * [Transfer NFT](#transfer-nft)
   * [Basic NFT Sale](#basic-nft-sale)
@@ -224,6 +225,7 @@ Transaction request must be discarded if the local time is greater than the `exp
             "deploy" |
             "nft-collection-deploy" |
             "nft-item-deploy" |
+            "nft-single-deploy" |
             "nft-change-owner" |
             "nft-transfer" |
             "nft-sale-place-getgems" |
@@ -238,6 +240,7 @@ Transaction request must be discarded if the local time is greater than the `exp
               DeployParams |
               NftCollectionDeployParams |
               NftItemDeployParams |
+              NftSingleDeployParams |
               NftChangeOwnerParams |
               NftTransferParams |
               NftSalePlaceParams |
@@ -316,13 +319,13 @@ const valid = (address.hashPart == hash);
 Parameters:
 
 * `ownerAddress` (string, optional)
-* `royalty` (float): 
+* `royalty` (float): number from 0 to 1.
 * `royaltyAddress` (string)
 * `collectionContentUri` (string): URI to the collection content
 * `nftItemContentBaseUri` (string): URI to the item content
-* `nftCollectionCodeHex` (string): hex-encoded collection contract code BoC with one cell
+* `nftCollectionStateInitHex` (string, optional): hex-encoded collection stateinit BoC with one cell
 * `nftItemCodeHex` (string): hex-encoded item contract code BoC with one cell
-* `amount` (decimal string): nanotoncoins 
+* `amount` (decimal string): nanotoncoins
 
 If the `ownerAddress` is set: 
 * single-wallet app checks that the address matches user’s address.
@@ -333,6 +336,8 @@ If the `ownerAddress` is missing: wallet app uses the current address.
 Note: `ownerAddress` cannot be set to some other wallet, not controlled by the initiator of the transaction.
 
 If the `royaltyAddress` is set and not equal to the `ownerAddress` wallet app shows separate line with royalty recipient.
+
+If the `nftCollectionStateInitHex` is specified, then all the data parameters (royalty, URIs, NFT item code) are ignored and raw state init cell is used instead. Collection ID is calculated from that stateinit.
 
 Primary confirmation UI displays:
 
@@ -357,6 +362,7 @@ Parameters:
 * `ownerAddress` (string, optional)
 * `nftCollectionAddress` (string)
 * `amount` (decimal string): nanocoins to be sent to the item’s contract
+* `forwardAmount` (decimal string): nanocoins to be sent by collection to the item.
 * `itemIndex` (integer): index of the item in the collection
 * `itemContentUri` (string): path to the item description
 
@@ -367,6 +373,8 @@ If the `ownerAddress` is set:
 If the `ownerAddress` is missing: wallet app uses the current address.
 
 Note: `ownerAddress` cannot be set to some other wallet, not controlled by the initiator of the transaction.
+
+Wallet must check if `forwardAmount` is above zero and less than `amount`.
 
 Primary confirmation UI displays:
 
@@ -379,6 +387,18 @@ Secondary UI with raw data:
 * Item Index (TODO: figure out what happens if this clashes with existing one)
 * NFT Collection ID
 * itemContentUri
+
+
+### Deploy Single NFT
+
+[Transaction request](#transaction-request) object with type `nft-single-deploy`.
+
+* TBD.
+* `stateInitHex` (string): hex-encoded NFT stateinit BoC with one cell.
+* `amount` (decimal string): nanotoncoins to be sent to that deployed NFT contract.
+
+All data parameters are used in UI only, while raw state init cell is used for actual deploy.
+
 
 
 ### Change Collection Owner
@@ -443,7 +463,7 @@ Parameters:
 * `royaltyAmount` (decimal string): nanotoncoins sent as royalties
 * `deployAmount` (decimal string): nanotoncoins sent with deployment of sale contract
 * `transferAmount` (decimal string): nanotoncoins sent with nft transfer message
-* `forwardAmount` (decimal string): nanocoins to be sent as a notification to the sale contract
+* `forwardAmount` (decimal string): nanocoins to be sent as a forward for the NFT transfer (in the second transaction)
 
 Primary confirmation UI displays:
 
@@ -482,7 +502,7 @@ Parameters:
 * `transferAmount` (decimal string): nanotoncoins sent with nft transfer message
 * `saleMessageBocHex` (string): hex-encoded arbitrary BoC with one cell (typically an empty cell)
 * `marketplaceSignatureHex` (string): hex-encoded signature
-* `forwardAmount` (decimal string): nanocoins to be sent as a notification to the sale contract
+* `forwardAmount` (decimal string): nanocoins to be sent as a forward for the NFT transfer (in the second transaction)
 
 Primary confirmation UI displays:
 
