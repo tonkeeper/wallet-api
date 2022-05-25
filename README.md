@@ -359,8 +359,9 @@ Secondary UI with raw data:
 
 Parameters:
 
-* `ownerAddress` (string, optional)
-* `nftCollectionAddress` (string)
+* `ownerAddress` (string, optional): owner of the collection.
+* `nftCollectionAddress` (string): contract address of the collection that will deploy the item.
+* `nftItemContentBaseUri` (string): base URL of the NFT collection metadata that will be used in concatenation with `itemContentUri`.
 * `amount` (decimal string): nanocoins to be sent to the item’s contract
 * `forwardAmount` (decimal string): nanocoins to be sent by collection to the item.
 * `itemIndex` (integer): index of the item in the collection
