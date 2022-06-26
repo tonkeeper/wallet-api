@@ -1,4 +1,6 @@
-# Tonkeeper Wallet API
+# Tonkeeper Wallet API (DRAFT)
+
+⚠️ This documentation is work-in-progress. Some features are not yet implemented.
 
 * [Definitions](#definitions)
 * [Payment URLs](#payment-urls)
