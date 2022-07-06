@@ -75,6 +75,29 @@ https://app.tonkeeper.com/transfer/<address>?
 Opens a compact confirmation dialog with all data filled-in. 
 User cannot edit any of the info and can only confirm or dismiss the request.
 
+#### Unauthenticated token transfers
+
+```
+https://app.tonkeeper.com/jetton-transfer/<jettonid>
+https://app.tonkeeper.com/jetton-transfer/<jettonid>/<address>?amount=<nanocoins>
+https://app.tonkeeper.com/jetton-transfer/<address>?text=<url-encoded-utf8-text>
+```
+
+Opens the pre-filled Send screen and offers user to enter the missing data.
+
+```
+ton://transfer/<address>?
+    amount=<nanocoins>&
+    text=<url-encoded-utf8-text>
+
+https://app.tonkeeper.com/transfer/<address>?
+    amount=<nanocoins>&
+    text=<url-encoded-utf8-text>
+```
+
+Opens a compact confirmation dialog with all data filled-in.
+User cannot edit any of the info and can only confirm or dismiss the request.
+
 #### Unauthenticated donations
 
 WIP.
