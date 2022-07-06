@@ -225,6 +225,7 @@ Transaction request must be discarded if the local time is greater than the `exp
     "type": "transfer" |
             "donation" |
             "deploy" |
+            "sign-boc" |
             "nft-collection-deploy" |
             "nft-item-deploy" |
             "nft-single-deploy" |
@@ -240,6 +241,7 @@ Transaction request must be discarded if the local time is greater than the `exp
     "params": TransferParams |
               DonationParams |
               DeployParams |
+              SignBoc |
               NftCollectionDeployParams |
               NftItemDeployParams |
               NftSingleDeployParams |
@@ -310,6 +312,31 @@ const hash = await stateInitCell.hash();
 const address = new Address(params.address);
 const valid = (address.hashPart == hash);
 ```
+
+
+### SignBoc
+
+[Transaction request](#transaction-request) object with type `sign-boc`.
+
+Parameters:
+
+* `address` (string, optional): destination address.
+* `amount` (decimal string): number of nanocoins to send.
+* `payload` (string base64): raw BoC encoded in Base64.
+
+Wallet simulates the execution of the message and present to the user summary of operations: "jetton XYZ will be transferred, N toncoins will be sent" etc.
+
+```
+await wallet.methods.transfer({
+    secretKey: ...
+    toAddress: <address>,
+    amount: <amount>,
+    seqno: seqno,
+    payload: <payload>,
+    sendMode: 3,
+}).send()
+```
+
 
 
 ## NFTs
