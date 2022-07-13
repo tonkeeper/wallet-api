@@ -10,6 +10,7 @@
   * [Payment](#payment)
   * [Donation](#donation)
   * [Deploy](#deploy)
+  * [SignRawPayload](#SignRawPayload)
 * [NFTs](#nfts)
   * [Deploy NFT collection](#deploy-nft-collection)
   * [Deploy NFT item](#deploy-nft-item)
@@ -225,7 +226,7 @@ Transaction request must be discarded if the local time is greater than the `exp
     "type": "transfer" |
             "donation" |
             "deploy" |
-            "sign-boc" |
+            "sign-raw-payload" |
             "nft-collection-deploy" |
             "nft-item-deploy" |
             "nft-single-deploy" |
@@ -298,7 +299,7 @@ Parameters:
 
 * `address` (string)
 * `stateInitHex` (string): hex-encoded collection contract code BoC with one cell encapsulating entire StateInit
-* `amount` (decimal string): nanotoncoins
+* `amount` (decimal string): nanotoncoins.
 * `text` (string, optional): text message that must be attached to the deploy operation
 
 Opens a compact confirmation dialog with all data filled-in.
@@ -314,15 +315,16 @@ const valid = (address.hashPart == hash);
 ```
 
 
-### SignBoc
+### SignRawPayload
 
-[Transaction request](#transaction-request) object with type `sign-boc`.
+[Transaction request](#transaction-request) object with type `sign-raw-payload`.
 
 Parameters:
 
 * `address` (string, optional): destination address.
 * `amount` (decimal string): number of nanocoins to send.
-* `payload` (string base64): raw BoC encoded in Base64.
+* `payload` (string base64): raw one-cell BoC encoded in Base64.
+* `stateInit` (string base64): raw once-cell BoC encoded in Base64.
 
 Wallet simulates the execution of the message and present to the user summary of operations: "jetton XYZ will be transferred, N toncoins will be sent" etc.
 
@@ -333,6 +335,7 @@ await wallet.methods.transfer({
     amount: <amount>,
     seqno: seqno,
     payload: <payload>,
+    stateInit: <stateInit>,
     sendMode: 3,
 }).send()
 ```
