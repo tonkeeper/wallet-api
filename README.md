@@ -323,10 +323,18 @@ Parameters:
 
 * `address` (string, optional): destination address.
 * `amount` (decimal string): number of nanocoins to send.
-* `payload` (string base64): raw one-cell BoC encoded in Base64.
-* `stateInit` (string base64): raw once-cell BoC encoded in Base64.
+* `payload` (string base64, optional): raw one-cell BoC encoded in Base64.
+* `stateInit` (string base64, optional): raw once-cell BoC encoded in Base64.
 
 Wallet simulates the execution of the message and present to the user summary of operations: "jetton XYZ will be transferred, N toncoins will be sent" etc.
+
+Common cases:
+
+1. No `payload`, no `stateInit`: simple transfer without a message.
+2. `payload` is prefixed with 32 zero bits, no `stateInit`: simple transfer with a text message.
+3. No `payload` or prefixed with 32 zero bits; `stateInit` is present: deployment of the contract.
+
+Example:
 
 ```
 await wallet.methods.transfer({
