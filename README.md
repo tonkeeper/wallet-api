@@ -321,7 +321,13 @@ const valid = (address.hashPart == hash);
 
 Parameters:
 
-* `address` (string, optional): destination address.
+* `source` (string, optional): sender address. for cases than source of transaction is important for dapp. wallet should check it or select from few accounts if wallet controls mora than one.
+* `valid_until` (integer, optional): unix timestamp. after th moment transaction will be invalid.
+* `messages` (array of messages): 1-4 outgoing messages from wallet to over accounts
+* `messages_ordering` (enum string <sync|async>, optinal, default - sync): how messages should be sent if `messages` contains more than one message. in one transaction with one signature or few transactions with different signatures and after executing previous.
+
+Message structure:
+* `address` (string): message destination
 * `amount` (decimal string): number of nanocoins to send.
 * `payload` (string base64, optional): raw one-cell BoC encoded in Base64.
 * `stateInit` (string base64, optional): raw once-cell BoC encoded in Base64.
@@ -336,16 +342,23 @@ Common cases:
 
 Example:
 
-```
-await wallet.methods.transfer({
-    secretKey: ...
-    toAddress: <address>,
-    amount: <amount>,
-    seqno: seqno,
-    payload: <payload>,
-    stateInit: <stateInit>,
-    sendMode: 3,
-}).send()
+```json5
+{
+  "source": "0:E8FA2634A24AEF18ECB5FD4FC71A21B9E95F05768F8D9733C44ED598DB106C4C",
+  "valid_until": 1658253458,
+  "messages_ordering": "async",
+  "messages": [
+    {
+      "address": "0:412410771DA82CBA306A55FA9E0D43C9D245E38133CB58F1457DFB8D5CD8892F",
+      "amount": "20000000",
+      "initState": "base64bocblahblahblah==" //deploy contract
+    },{
+      "address": "0:E69F10CC84877ABF539F83F879291E5CA169451BA7BCE91A37A5CED3AB8080D3",
+      "amount": "60000000",
+      "payload": "base64bocblahblahblah==" //transfer nft to new deployed account 0:412410771DA82CBA306A55FA9E0D43C9D245E38133CB58F1457DFB8D5CD8892F
+    }
+  ]
+}
 ```
 
 
