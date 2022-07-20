@@ -324,7 +324,7 @@ Parameters:
 * `source` (string, optional): sender address. for cases than source of transaction is important for dapp. wallet should check it or select from few accounts if wallet controls mora than one.
 * `valid_until` (integer, optional): unix timestamp. after th moment transaction will be invalid.
 * `messages` (array of messages): 1-4 outgoing messages from wallet to over accounts
-* `messages_ordering` (enum string <sync|async>, optinal, default - sync): how messages should be sent if `messages` contains more than one message. in one transaction with one signature or few transactions with different signatures and after executing previous.
+* `messages_ordering` (enum string <sync|async>, optinal, default - sync): how messages should be sent if `messages` contains more than one message. in one transaction with one signature or few transactions with different signatures and after executing the previous one.
 
 Message structure:
 * `address` (string): message destination
