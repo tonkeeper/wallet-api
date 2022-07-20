@@ -321,10 +321,9 @@ const valid = (address.hashPart == hash);
 
 Parameters:
 
-* `source` (string, optional): sender address. for cases than source of transaction is important for dapp. wallet should check it or select from few accounts if wallet controls mora than one.
+* `source` (string, optional): sender address. For cases than source of transaction is important for dapp. wallet should check it or select from few accounts if wallet controls mora than one.
 * `valid_until` (integer, optional): unix timestamp. after th moment transaction will be invalid.
-* `messages` (array of messages): 1-4 outgoing messages from wallet to over accounts
-* `messages_ordering` (enum string <sync|async>, optinal, default - sync): how messages should be sent if `messages` contains more than one message. in one transaction with one signature or few transactions with different signatures and after executing the previous one.
+* `messages` (array of messages): 1-4 outgoing messages from wallet to over accounts. All messages are sending in one transaction one-by-one in same order us in your array. **Wallet can't guarantee that messages will be delivered and executed in same order**.
 
 Message structure:
 * `address` (string): message destination
@@ -346,7 +345,6 @@ Example:
 {
   "source": "0:E8FA2634A24AEF18ECB5FD4FC71A21B9E95F05768F8D9733C44ED598DB106C4C",
   "valid_until": 1658253458,
-  "messages_ordering": "async",
   "messages": [
     {
       "address": "0:412410771DA82CBA306A55FA9E0D43C9D245E38133CB58F1457DFB8D5CD8892F",
