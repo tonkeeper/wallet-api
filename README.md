@@ -10,6 +10,7 @@
   * [Payment](#payment)
   * [Donation](#donation)
   * [Deploy](#deploy)
+  * [SignRawPayload](#SignRawPayload)
 * [NFTs](#nfts)
   * [Deploy NFT collection](#deploy-nft-collection)
   * [Deploy NFT item](#deploy-nft-item)
@@ -225,6 +226,7 @@ Transaction request must be discarded if the local time is greater than the `exp
     "type": "transfer" |
             "donation" |
             "deploy" |
+            "sign-raw-payload" |
             "nft-collection-deploy" |
             "nft-item-deploy" |
             "nft-single-deploy" |
@@ -240,6 +242,7 @@ Transaction request must be discarded if the local time is greater than the `exp
     "params": TransferParams |
               DonationParams |
               DeployParams |
+              SignBoc |
               NftCollectionDeployParams |
               NftItemDeployParams |
               NftSingleDeployParams |
@@ -296,7 +299,7 @@ Parameters:
 
 * `address` (string)
 * `stateInitHex` (string): hex-encoded collection contract code BoC with one cell encapsulating entire StateInit
-* `amount` (decimal string): nanotoncoins
+* `amount` (decimal string): nanotoncoins.
 * `text` (string, optional): text message that must be attached to the deploy operation
 
 Opens a compact confirmation dialog with all data filled-in.
@@ -310,6 +313,54 @@ const hash = await stateInitCell.hash();
 const address = new Address(params.address);
 const valid = (address.hashPart == hash);
 ```
+
+
+### SignRawPayload
+
+[Transaction request](#transaction-request) object with type `sign-raw-payload`.
+
+Parameters:
+
+* `source` (string, optional): sender address. for cases than source of transaction is important for dapp. wallet should check it or select from few accounts if wallet controls mora than one.
+* `valid_until` (integer, optional): unix timestamp. after th moment transaction will be invalid.
+* `messages` (array of messages): 1-4 outgoing messages from wallet to over accounts
+* `messages_ordering` (enum string <sync|async>, optinal, default - sync): how messages should be sent if `messages` contains more than one message. in one transaction with one signature or few transactions with different signatures and after executing the previous one.
+
+Message structure:
+* `address` (string): message destination
+* `amount` (decimal string): number of nanocoins to send.
+* `payload` (string base64, optional): raw one-cell BoC encoded in Base64.
+* `stateInit` (string base64, optional): raw once-cell BoC encoded in Base64.
+
+Wallet simulates the execution of the message and present to the user summary of operations: "jetton XYZ will be transferred, N toncoins will be sent" etc.
+
+Common cases:
+
+1. No `payload`, no `stateInit`: simple transfer without a message.
+2. `payload` is prefixed with 32 zero bits, no `stateInit`: simple transfer with a text message.
+3. No `payload` or prefixed with 32 zero bits; `stateInit` is present: deployment of the contract.
+
+Example:
+
+```json5
+{
+  "source": "0:E8FA2634A24AEF18ECB5FD4FC71A21B9E95F05768F8D9733C44ED598DB106C4C",
+  "valid_until": 1658253458,
+  "messages_ordering": "async",
+  "messages": [
+    {
+      "address": "0:412410771DA82CBA306A55FA9E0D43C9D245E38133CB58F1457DFB8D5CD8892F",
+      "amount": "20000000",
+      "initState": "base64bocblahblahblah==" //deploy contract
+    },{
+      "address": "0:E69F10CC84877ABF539F83F879291E5CA169451BA7BCE91A37A5CED3AB8080D3",
+      "amount": "60000000",
+      "payload": "base64bocblahblahblah==" //transfer nft to new deployed account 0:412410771DA82CBA306A55FA9E0D43C9D245E38133CB58F1457DFB8D5CD8892F
+    }
+  ]
+}
+```
+
 
 
 ## NFTs
