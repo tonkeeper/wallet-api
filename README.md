@@ -323,7 +323,7 @@ Parameters:
 
 * `source` (string, optional): sender address. Provided in case the source of transaction is important to the dapp. Wallet application must select the appropriate wallet contract to send the message from, or post an error if it does not have the keys to that specific address.
 * `valid_until` (integer, optional): unix timestamp. after th moment transaction will be invalid.
-* `messages` (array of messages): 1-4 outgoing messages from wallet to over accounts. All messages are sending in one transaction one-by-one in the same order as in your array. **Wallet can't guarantee that messages will be delivered and executed in same order**.
+* `messages` (array of messages): 1-4 outgoing messages from the wallet contract to other accounts. All messages are sent out in order, however **the wallet cannot guarantee that messages will be delivered and executed in same order**.
 
 Message structure:
 * `address` (string): message destination
