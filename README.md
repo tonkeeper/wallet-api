@@ -57,10 +57,12 @@ That public key is then used to authenticate the object (e.g. pulling it from th
 ton://transfer/<address>
 ton://transfer/<address>?amount=<nanocoins>
 ton://transfer/<address>?text=<url-encoded-utf8-text>
+ton://transfer/<address>?bin=<url-encoded-base64-boc>
 
 https://app.tonkeeper.com/transfer/<address>
 https://app.tonkeeper.com/transfer/<address>?amount=<nanocoins>
 https://app.tonkeeper.com/transfer/<address>?text=<url-encoded-utf8-text>
+https://app.tonkeeper.com/transfer/<address>?bin=<url-encoded-base64-boc>
 ```
 
 Opens the pre-filled Send screen and offers user to enter the missing data.
