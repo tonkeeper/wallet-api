@@ -131,7 +131,7 @@ https://app.tonkeeper.com/transfer/<destination-address>?
     [fee-amount=<nanocoins>&]
     [forward-amount=<nanocoins>]
     
-ton://nft-transfer/<destination-address>?
+ton://transfer/<destination-address>?
     [nft=<nft-address>&]
     [fee-amount=<nanocoins>&]
     [forward-amount=<nanocoins>] 
