@@ -126,13 +126,13 @@ const valid = (address.hashPart == hash);
 #### Unauthenticated NFT transfer
 
 ```
-https://app.tonkeeper.com/nft-transfer/<nft-address>?
-    [to=<address>&]
+https://app.tonkeeper.com/transfer/<destination-address>?
+    [nft=<nft-address>&]
     [fee-amount=<nanocoins>&]
     [forward-amount=<nanocoins>]
     
-ton://nft-transfer/<nft-address>?
-    [to=<address>&]
+ton://nft-transfer/<destination-address>?
+    [nft=<nft-address>&]
     [fee-amount=<nanocoins>&]
     [forward-amount=<nanocoins>] 
 ```
@@ -146,14 +146,14 @@ Opens the pre-filled NFT-send screen and offers user to enter the missing data.
 #### Unauthenticated Jetton transfer
 
 ```
-https://app.tonkeeper.com/jetton-transfer/<jetton-master-address>?
-    [to=<address>&]
+https://app.tonkeeper.com/transfer/<destination-address>?
+    [jetton=<jetton-master-address>&]
     [amount=<elementary units>&]
     [fee-amount=<nanocoins>&]
     [forward-amount=<nanocoins>]
     
-ton://jetton-transfer/<jetton-master-address>?
-    [to=<address>&]
+ton://transfer/<destination-address>?
+    [jetton=<jetton-master-address>&]
     [amount=<elementary units>&]
     [fee-amount=<nanocoins>&]
     [forward-amount=<nanocoins>] 
