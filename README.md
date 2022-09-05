@@ -57,10 +57,14 @@ That public key is then used to authenticate the object (e.g. pulling it from th
 ton://transfer/<address>
 ton://transfer/<address>?amount=<nanocoins>
 ton://transfer/<address>?text=<url-encoded-utf8-text>
+ton://transfer/<address>?bin=<url-encoded-base64-boc>
+ton://transfer/<address>?bin=<url-encoded-base64-boc>&init=<url-encoded-base64-boc>
 
 https://app.tonkeeper.com/transfer/<address>
 https://app.tonkeeper.com/transfer/<address>?amount=<nanocoins>
 https://app.tonkeeper.com/transfer/<address>?text=<url-encoded-utf8-text>
+https://app.tonkeeper.com/transfer/<address>?bin=<url-encoded-base64-boc>
+https://app.tonkeeper.com/transfer/<address>?bin=<url-encoded-base64-boc>&init=<url-encoded-base64-boc>
 ```
 
 Opens the pre-filled Send screen and offers user to enter the missing data.
@@ -119,6 +123,50 @@ const hash = await stateInitCell.hash();
 const address = new Address(uriparams.address);
 const valid = (address.hashPart == hash);
 ```
+
+
+#### Unauthenticated NFT transfer
+
+```
+https://app.tonkeeper.com/transfer/<destination-address>?
+    [nft=<nft-address>&]
+    [fee-amount=<nanocoins>&]
+    [forward-amount=<nanocoins>]
+    
+ton://transfer/<destination-address>?
+    [nft=<nft-address>&]
+    [fee-amount=<nanocoins>&]
+    [forward-amount=<nanocoins>] 
+```
+
+Opens the pre-filled NFT-send screen and offers user to enter the missing data.
+* `to`: (string) destination account ID. Optional.
+* `fee-amount` (decimal string): nanocoins to be sent to the item’s contract for paying fee. All not used TONs should be returned back by NFT. If not specified default value will be used - 1 TON.
+* `forward-amount` (decimal string): nanocoins to be sent as a notification to the new owner. If not specified default value will be used - 1 nanoTON.
+
+
+#### Unauthenticated Jetton transfer
+
+```
+https://app.tonkeeper.com/transfer/<destination-address>?
+    [jetton=<jetton-master-address>&]
+    [amount=<elementary units>&]
+    [fee-amount=<nanocoins>&]
+    [forward-amount=<nanocoins>]
+    
+ton://transfer/<destination-address>?
+    [jetton=<jetton-master-address>&]
+    [amount=<elementary units>&]
+    [fee-amount=<nanocoins>&]
+    [forward-amount=<nanocoins>] 
+```
+
+Opens the pre-filled NFT-send screen and offers user to enter the missing data.
+* `to`: (string) destination account ID. Optional.
+* `amount` (decimal string): amount of transferred jettons in elementary units.
+* `fee-amount` (decimal string): nanocoins to be sent to the Jetton contract for paying fee. All not used TONs should be returned back by Jetton contract. If not specified default value will be used - 1 TON.
+* `forward-amount` (decimal string): nanocoins to be sent as a notification to the destination account. If not specified default value will be used - 1 nanoTON.
+
 
 
 #### Transaction Request URL
