@@ -103,6 +103,8 @@ Displays a specialized donation/tip interface.
 
 #### Unauthenticated contract deploys
 
+⚠️ DEPRECATED: use bin/init params (see above)
+
 ```
 https://app.tonkeeper.com/deploy/<address>?
     amount=<nanocoins>&
