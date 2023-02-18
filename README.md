@@ -4,18 +4,18 @@
 
 * [Definitions](#definitions)
 * [Payment URLs](#payment-urls)
-* [Authentication](#authentication)
+* [Authentication](#authentication-methods)
 * [Transaction Request](#transaction-request)
 * [Basic transfers](#basic-transfers)
-  * [Payment](#payment)
-  * [Donation](#donation)
-  * [Deploy](#deploy)
-  * [SignRawPayload](#SignRawPayload)
+  * [Payment](#unauthenticated-transfers)
+  * [Donation](#unauthenticated-donations)
+  * [Deploy](#unauthenticated-transfers)
+  * [SignRawPayload](#unauthenticated-transfers)
 * [NFTs](#nfts)
   * [Deploy NFT collection](#deploy-nft-collection)
   * [Deploy NFT item](#deploy-nft-item)
   * [Deploy Single NFT](#deploy-single-nft)
-  * [Change Collection Owner](#change-nft-owner)
+  * [Change Collection Owner](#change-collection-owner)
   * [Transfer NFT](#transfer-nft)
   * [Basic NFT Sale](#basic-nft-sale)
   * [Getgems NFT Sale](#getgems-nft-sale)
@@ -206,7 +206,7 @@ https://app.tonkeeper.com/v1/txrequest-url/<example.com/...json>
 ```
 
 
-## Authentication
+## Authentication methods
 
 There are three ways to authenticate authors of transaction requests: 
 
