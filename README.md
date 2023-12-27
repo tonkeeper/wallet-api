@@ -4,13 +4,13 @@
 
 * [Definitions](#definitions)
 * [Payment URLs](#payment-urls)
-* [Authentication](#authentication)
+* [Authentication](#authentication-methods)
 * [Transaction Request](#transaction-request)
 * [Basic transfers](#basic-transfers)
-  * [Payment](#payment)
-  * [Donation](#donation)
-  * [Deploy](#deploy)
-  * [SignRawPayload](#SignRawPayload)
+  * [Payment](#unauthenticated-transfers)
+  * [Donation](#unauthenticated-donations)
+  * [Deploy](#unauthenticated-transfers)
+  * [SignRawPayload](#unauthenticated-transfers)
 * [Subscriptions](#subscriptions)
 
 
@@ -197,7 +197,7 @@ https://app.tonkeeper.com/v1/txrequest-url/<example.com/...json>
 ```
 
 
-## Authentication
+## Authentication methods
 
 There are three ways to authenticate authors of transaction requests: 
 
