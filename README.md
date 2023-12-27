@@ -154,7 +154,7 @@ ton://transfer/<destination-address>?
     [forward-amount=<nanocoins>] 
 ```
 
-Opens the pre-filled NFT-send screen and offers user to enter the missing data.
+Opens the pre-filled Jetton-send screen and offers user to enter the missing data.
 * `to`: (string) destination account ID. Optional.
 * `amount` (decimal string): amount of transferred jettons in elementary units.
 * `fee-amount` (decimal string): nanocoins to be sent to the Jetton contract for paying fee. All not used TONs should be returned back by Jetton contract. If not specified default value will be used - 1 TON.
