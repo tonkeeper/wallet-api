@@ -154,6 +154,15 @@ ton://transfer/<destination-address>?
     [forward-amount=<nanocoins>] 
 ```
 
+#### Unauthenticated inscription token transfer
+
+```
+https://app.tonkeeper.com/inscription-transfer/<destination-address>?
+    [ticker=<inscription-ticker>&]
+    [amount=<elementary units>&]
+    [type=<inscription-standart>&]
+```
+
 Opens the pre-filled Jetton-send screen and offers user to enter the missing data.
 * `to`: (string) destination account ID. Optional.
 * `amount` (decimal string): amount of transferred jettons in elementary units.
