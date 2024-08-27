@@ -169,7 +169,17 @@ Transaction request can be communicated to the wallet in 3 different ways:
 * Direct link to download [Transaction Request](#transaction-request).
 * Inline TR object wrapped in a Tonkeeper universal link.
 * Wrapped TR link in a Tonkeeper universal link.
+ton://transfer/<address>
+ton://transfer/<address>?amount=<nanocoins>
+ton://transfer/<address>?text=<url-encoded-utf8-text>
+ton://transfer/<address>?bin=<url-encoded-base64-boc>
+ton://transfer/<address>?bin=<url-encoded-base64-boc>&init=<url-encoded-base64-boc>
 
+https://app.tonkeeper.com/transfer/<address>
+https://app.tonkeeper.com/transfer/<address>?amount=<nanocoins>
+https://app.tonkeeper.com/transfer/<address>?text=<url-encoded-utf8-text>
+https://app.tonkeeper.com/transfer/<address>?bin=<url-encoded-base64-boc>
+https://app.tonkeeper.com/transfer/<address>?bin=<url-encoded-base64-boc>&init=<url-encoded-base64-boc>
 #### Direct Transaction Request URL
 
 Any URL that returns JSON-encoded [Transaction Request](#transaction-request).
@@ -394,4 +404,15 @@ TBD: describe the API to submit subscriptions
 ```
 https://app.tonkeeper.com/v1/subscribe/<invoice-id>
 ```
+ton://transfer/<address>
+ton://transfer/<address>?amount=<nanocoins>
+ton://transfer/<address>?text=<url-encoded-utf8-text>
+ton://transfer/<address>?bin=<url-encoded-base64-boc>
+ton://transfer/<address>?bin=<url-encoded-base64-boc>&init=<url-encoded-base64-boc>
+
+https://app.tonkeeper.com/transfer/<address>
+https://app.tonkeeper.com/transfer/<address>?amount=<nanocoins>
+https://app.tonkeeper.com/transfer/<address>?text=<url-encoded-utf8-text>
+https://app.tonkeeper.com/transfer/<address>?bin=<url-encoded-base64-boc>
+https://app.tonkeeper.com/transfer/<address>?bin=<url-encoded-base64-boc>&init=<url-encoded-base64-boc>
 
