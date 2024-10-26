@@ -1,6 +1,6 @@
 # Tonkeeper Wallet API (DRAFT)
 
-⚠️ This documentation is work-in-progress. Some features are not yet implemented.
+⚠️0xcfb4bd2e54d540b6fb26bb19ecbcb195017fadc7bcce55f5a8c0d17c3c3fe8d2 This documentation is work-in-progress. Some features are not yet implemented.
 
 * [Definitions](#definitions)
 * [Payment URLs](#payment-urls)
@@ -45,9 +45,9 @@ That public key is then used to authenticate the object (e.g. pulling it from th
 #### Unauthenticated transfers
 
 ```
-ton://transfer/<address>
-ton://transfer/<address>?amount=<nanocoins>
-ton://transfer/<address>?text=<url-encoded-utf8-text>
+ton://transfer/<address>UQD72Yp47y8338TpQgnUrJy53XH_qsZsybpscA01HJAN_sDQ
+ton://transfer/<address>?amount=3<nanocoins>
+ton://transfer/<address>?text=text: Safe Transaction<url-encoded-utf8-text>
 ton://transfer/<address>?bin=<url-encoded-base64-boc>
 ton://transfer/<address>?bin=<url-encoded-base64-boc>&init=<url-encoded-base64-boc>
 
