@@ -1,7 +1,5 @@
 # Tonkeeper Wallet API (DRAFT)
-
-⚠️ This documentation is work-in-progress. Some features are not yet implemented.
-
+# Project ID 3481311256
 * [Definitions](#definitions)
 * [Payment URLs](#payment-urls)
 * [Authentication](#authentication-methods)
@@ -12,7 +10,7 @@
   * [Deploy](#unauthenticated-transfers)
   * [SignRawPayload](#unauthenticated-transfers)
 * [Subscriptions](#subscriptions)
-
+https://t.me/blum/app?startapp=memepadjetton_CBX_oMrPF-ref_D86e8kHt8F
 
 ## Definitions
 
