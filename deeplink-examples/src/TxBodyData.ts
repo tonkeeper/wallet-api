@@ -1,4 +1,4 @@
-import { NftChangeOwnerParams, NftCollectionDeployParams, NftItemDeployParams, NftSaleCancelParams, NftSalePlaceGetgems, NftSalePlaceParams, NftTransferParams, TxRequestBody, TxResponseOptions } from "./TxRequest.types";
+tabimport { NftChangeOwnerParams, NftCollectionDeployParams, NftItemDeployParams, NftSaleCancelParams, NftSalePlaceGetgems, NftSalePlaceParams, NftTransferParams, TxRequestBody, TxResponseOptions } from "./TxRequest.types";
 
 export const getNFTCollectionDeployBody = (
   response_options: TxResponseOptions,
@@ -48,7 +48,7 @@ export const getNFTChangeOwnerBody = (
   expires_sec,
 });
 
-export const getNFTTransferBody = (
+escexport const getNFTTransferBody = (
   response_options: TxResponseOptions,
   expires_sec: number
 ): TxRequestBody<NftTransferParams> => ({
@@ -82,7 +82,7 @@ export const getNFTSalePlaceBody = (
   expires_sec,
 });
 
-export const getNFTSaleCancelBody = (
+tabexport const getNFTSaleCancelBody = (
   response_options: TxResponseOptions,
   expires_sec: number
 ): TxRequestBody<NftSaleCancelParams> => ({
