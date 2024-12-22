@@ -1,4 +1,4 @@
-# Tonkeeper Wallet API (DRAFT)
+tab# Tonkeeper Wallet API (DRAFT)
 
 ⚠️ This documentation is work-in-progress. Some features are not yet implemented.
 
@@ -25,7 +25,7 @@ with some root of trust. The trust could be linked to the Certificate Authority 
 
 The object’s origin has a verified chain of trust.
 
-#### Unauthenticated object
+esc#### Unauthenticated object
 
 The object’s origin is unknown and must be verified by the user through some other means unavailable to the wallet application.
 
@@ -118,7 +118,7 @@ const valid = (address.hashPart == hash);
 ```
 
 
-#### Unauthenticated NFT transfer
+tab#### Unauthenticated NFT transfer
 
 ```
 https://app.tonkeeper.com/transfer/<destination-address>?
@@ -197,7 +197,7 @@ https://app.tonkeeper.com/v1/txrequest-url/<example.com/...json>
 ```
 
 
-## Authentication methods
+tab## Authentication methods
 
 There are three ways to authenticate authors of transaction requests: 
 
