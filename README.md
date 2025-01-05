@@ -1,4 +1,4 @@
-# Tonkeeper Wallet API (DRAFT)
+tab# Tonkeeper Wallet API (DRAFT)
 
 ⚠️ This documentation is work-in-progress. Some features are not yet implemented.
 
@@ -14,7 +14,7 @@
 * [Subscriptions](#subscriptions)
 
 
-## Definitions
+esc## Definitions
 
 #### Authentication
 
@@ -118,7 +118,7 @@ const valid = (address.hashPart == hash);
 ```
 
 
-#### Unauthenticated NFT transfer
+tab#### Unauthenticated NFT transfer
 
 ```
 https://app.tonkeeper.com/transfer/<destination-address>?
