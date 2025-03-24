@@ -1,6 +1,12 @@
 # Tonkeeper Wallet API (DRAFT)
 
-⚠️ This documentation is work-in-progress. Some features are not yet implemented.
+
+
+
+⚠️ This documentation is a legacy draft.
+
+To build apps use [tonapi.io](https://tonapi.io)
+
 
 * [Definitions](#definitions)
 * [Payment URLs](#payment-urls)
