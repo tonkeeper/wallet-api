@@ -1,7 +1,4 @@
-# Tonkeeper Wallet API (DRAFT)
-
-
-
+# Tonkeeper Wallet API Draft
 
 ⚠️ This documentation is a legacy draft.
 
