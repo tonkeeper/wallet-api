@@ -1,6 +1,12 @@
-# Tonkeeper Wallet API Draft
+# ⚠️ This documentation is outdated.
 
-⚠️ This documentation is a legacy draft.
+See https://docs.tonconsole.com/tonkeeper/deep-linking for up-to-date info.
+
+<br/><br/><br/><br/>
+
+<hr/>
+
+# Tonkeeper Wallet API Draft
 
 To build apps use [tonapi.io](https://tonapi.io)
 
